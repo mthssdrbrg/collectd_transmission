@@ -23,8 +23,7 @@
         </header>
 
         <section id="downloads" class="clearfix">
-          <a href="https://github.com/akosiaris/collectd_transmission/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/akosiaris/collectd_transmission/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/akosiaris/collectd_transmission/releases/download/v1.3/collectd_transmission-v1.3.tar.gz" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
           <a href="https://github.com/akosiaris/collectd_transmission" id="view-on-github" class="button"><span>View on GitHub</span></a>
         </section>
 
@@ -56,7 +55,7 @@ you have collectd doing)</p>
 <h1>
 <a id="how-to-install" class="anchor" href="#how-to-install" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to install</h1>
 
-<p>I assume a Debian system here, amend accordingly for your system</p>
+<p>I assume a Debian system here, amend accordingly for your system. If you use Ubuntu, you can use the Debian instructions</p>
 
 <p>If you have not already installed transmision, install it:</p>
 
@@ -67,7 +66,7 @@ you have collectd doing)</p>
 probably work with a non headless box as well and a normal transmission
 installation but this has not been tested.</p>
 
-<p>Install the python transmission binding</p>
+<p>Install the python transmission bindings</p>
 
 <pre><code>apt-get install python-transmissionrpc
 </code></pre>
@@ -122,6 +121,10 @@ Most probably that is /var/lib/collectd/rrd/<em>hostname</em>/transmission/</p>
 your data anyway. If you don't there are various frontends available at:</p>
 
 <p><a href="https://collectd.org/wiki/index.php/List_of_front-ends">https://collectd.org/wiki/index.php/List_of_front-ends</a></p>
+
+<p>I tend to use <a href="https://launchpad.net/jarmon">jarmon</a> cause it is HTML/CSS/Javascript only and has a pretty OK look.
+Keep in mind this is a one system frontend only though.
+</p>
 
 <h1>
 <a id="compatibility" class="anchor" href="#compatibility" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compatibility</h1>
