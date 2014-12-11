@@ -23,8 +23,9 @@
         </header>
 
         <section id="downloads" class="clearfix">
-          <a href="https://github.com/akosiaris/collectd_transmission/releases/download/v1.3/collectd_transmission-v1.3.tar.gz" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/akosiaris/collectd_transmission/releases/download/v2.0/collectd_transmission-v2.0.tar.gz" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
           <a href="https://github.com/akosiaris/collectd_transmission" id="view-on-github" class="button"><span>View on GitHub</span></a>
+          <a href="https://pypi.python.org/pypi/collectd_transmission/v1.3" id="view-on-pypi" class="button"><span>View on PyPi</span></a>
         </section>
 
         <hr>
@@ -36,11 +37,17 @@
 <p>A python plugin for integrating collectd and transmission. With this
 installed, collectd will be querying transmission for the following:</p>
 
+Per session and cumulative:
+
 <ul>
 <li>downloadedBytes</li>
 <li>uploadedBytes</li>
 <li>filesAdded</li>
 <li>secondsActive</li>
+</ul>
+
+General stats
+<ul>
 <li>activeTorrentCount</li>
 <li>blocklist_size</li>
 <li>downloadSpeed</li>
@@ -52,67 +59,32 @@ installed, collectd will be querying transmission for the following:</p>
 <p>and creating the relevant RRD files (or pushing to graphite or whatever
 you have collectd doing)</p>
 
+<p>
+Some of these metrics are per session, some session cumulative, some are
+session independent. Their type 'current', 'cumulative', 'general' is set
+in the name of the metric and the corresponding RRD file
+</p>
+
+<h1>
+<a id="compatibility" class="anchor" href="#compatibility" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compatibility</h1>
+
+<p>Developed and tested on Debian Wheezy system.</p>
+
+<p>That means:</p>
+<ul>
+<li>collectd 5.1</li>
+<li>transmissionrpc 0.8</li>
+</ul>
+<p>But testing has also been conducted on Debian Jessie systems. Which means:</p>
+<ul>
+<li>collectd 5.4</li>
+<li>transmissionrpc 0.11</li>
+</ul>
+<p>It is expected Debian Jessie will be the main playground soon</p>
+<p>Feel free to submit PRs for other systems support</p>
 <h1>
 <a id="how-to-install" class="anchor" href="#how-to-install" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to install</h1>
-
-<p>I assume a Debian system here, amend accordingly for your system. If you use Ubuntu, you can use the Debian instructions</p>
-
-<p>If you have not already installed transmision, install it:</p>
-
-<pre><code>apt-get install transmission-daemon
-</code></pre>
-
-<p>The above install the daemon cause a headless box is assumed. It should
-probably work with a non headless box as well and a normal transmission
-installation but this has not been tested.</p>
-
-<p>Install the python transmission bindings</p>
-
-<pre><code>apt-get install python-transmissionrpc
-</code></pre>
-
-<p>Install collectd.</p>
-
-<pre><code>apt-get install collectd
-</code></pre>
-
-<h2>
-<a id="use-the-python-package" class="anchor" href="#use-the-python-package" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use the python package</h2>
-
-<pre><code>pip install collectd_transmission
-</code></pre>
-
-<h2>
-<a id="do-it-manually" class="anchor" href="#do-it-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Do it manually</h2>
-
-<p>Clone the repo, copy the module directory somewhere in your fileystem</p>
-
-<h1>
-<a id="configure" class="anchor" href="#configure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configure</h1>
-
-<p>Insert the following in your collectd.conf</p>
-
-<pre><code>&lt;Plugin python&gt;
-    ModulePath "/path/to/module/dir" # Not needed if installed via pip or package
-    LogTraces false
-    Interactive false
-    Import "collectd_transmission"
-    &lt;Module collectd_transmission&gt;
-        username "myuser" # Required
-        password "mypass" # Required
-        address "http://localhost:9091/transmission/rpc" # Optional, defaults to "http://localhost:9091/transmission/rpc"
-        timeout "5" # Optional, defaults to 5
-    &lt;/Module&gt;
-&lt;/Plugin&gt;
-</code></pre>
-
-<p>modified accordingly to your needs. Restart collectd and you are done.</p>
-
-<pre><code>sudo service collectd restart
-</code></pre>
-
-<p>There should be rrds for transmission under collectd's data directory.
-Most probably that is /var/lib/collectd/rrd/<em>hostname</em>/transmission/</p>
+<p>A look at the README.rst file should be most informative <a href="https://github.com/akosiaris/collectd_transmission"><span>View on GitHub</span></a>
 
 <h2>
 <a id="how-to-display-your-data" class="anchor" href="#how-to-display-your-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to display your data</h2>
@@ -126,18 +98,12 @@ your data anyway. If you don't there are various frontends available at:</p>
 Keep in mind this is a one system frontend only though.
 </p>
 
-<h1>
-<a id="compatibility" class="anchor" href="#compatibility" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compatibility</h1>
-
-<p>Developed and tested on Debian Wheezy system. Feel free to submit PRs for other systems support</p>
         </section>
 
         <footer>
           Collectd transmission is maintained by <a href="https://github.com/akosiaris">akosiaris</a><br>
           This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
         </footer>
-
-        
       </div>
     </div>
   </body>
