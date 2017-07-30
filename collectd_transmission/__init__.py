@@ -141,6 +141,25 @@ def get_stats():
                                  type_instance='%s.%s' % (category, snake_case(metric)))
             vl.dispatch(values=[field_getter(stats, metric, category)])
 
+    announce_stats = get_announce_stats()
+    for name, val in announce_stats.items():
+        vl = collectd.Values(type='gauge',
+                             plugin=PLUGIN_NAME,
+                             type_instance='announce.%s' % (name))
+        vl.dispatch(values=[val])
+
+
+def get_announce_stats():
+    result = {'succeeded': 0, 'failed': 0}
+    torrents = data['client'].get_torrents()
+    for torrent in torrents:
+        tracker_stats = getattr(torrent, 'trackerStats')[0]
+        if tracker_stats['lastAnnounceSucceeded']:
+            result['succeeded'] += 1
+        else:
+            result['failed'] += 1
+    return result
+
 
 # Register our functions
 collectd.register_config(config)
