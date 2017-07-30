@@ -138,7 +138,7 @@ def get_stats():
         for metric in catmetrics:
             vl = collectd.Values(type='gauge',
                                  plugin=PLUGIN_NAME,
-                                 type_instance='%s-%s' % (category, snake_case(metric)))
+                                 type_instance='%s.%s' % (category, snake_case(metric)))
             vl.dispatch(values=[field_getter(stats, metric, category)])
 
 
