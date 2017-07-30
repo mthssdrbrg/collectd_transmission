@@ -63,12 +63,12 @@ def initialize():
     '''
     Collectd initialization routine
     '''
-    USERNAME = data['username']
-    PASSWORD = data['password']
-    ADDRESS = data.get('address', 'http://localhost:9091/transmission/rpc')
-    TIMEOUT = int(data.get('timeout', '5'))
+    username = data['username']
+    password = data['password']
+    address = data.get('address', 'http://localhost:9091/transmission/rpc')
+    timeout = int(data.get('timeout', '5'))
     try:
-        c = transmissionrpc.Client(address=ADDRESS, user=USERNAME, password=PASSWORD, timeout=TIMEOUT)
+        c = transmissionrpc.Client(address=address, user=username, password=password, timeout=timeout)
     except transmissionrpc.error.TransmissionError:
         c = None
     data['client'] = c
