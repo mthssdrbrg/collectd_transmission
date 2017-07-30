@@ -1,5 +1,4 @@
 language: python
 install: pip install tox
 script: tox
-sudo: required
 dist: trusty
