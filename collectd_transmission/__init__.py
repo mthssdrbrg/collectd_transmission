@@ -8,6 +8,7 @@
 
 import collectd
 import transmissionrpc
+import re
 from distutils.version import StrictVersion
 
 PLUGIN_NAME = 'transmission'
@@ -112,6 +113,10 @@ def field_getter(stats, key, category):
             return stats.fields[key]
 
 
+def snake_case(s):
+    return re.sub('([A-Z]+)', r'_\1', s).lower()
+
+
 def get_stats():
     '''
     Collectd routine to actually get and dispatch the statistics
@@ -133,7 +138,7 @@ def get_stats():
         for metric in catmetrics:
             vl = collectd.Values(type='gauge',
                                  plugin=PLUGIN_NAME,
-                                 type_instance='%s-%s' % (category, metric))
+                                 type_instance='%s-%s' % (category, snake_case(metric)))
             vl.dispatch(values=[field_getter(stats, metric, category)])
 
 
