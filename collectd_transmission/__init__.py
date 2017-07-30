@@ -15,30 +15,30 @@ PLUGIN_NAME = 'transmission'
 data = {}
 metrics = {
     # General metrics
-    'general': {
-        'activeTorrentCount': {'type': 'gauge'},
-        'torrentCount': {'type': 'gauge'},
-        'downloadSpeed': {'type': 'gauge'},
-        'uploadSpeed': {'type': 'gauge'},
-        'pausedTorrentCount': {'type': 'gauge'},
-        'blocklist_size': {'type': 'gauge'},
-    },
+    'general': [
+        'activeTorrentCount',
+        'torrentCount',
+        'downloadSpeed',
+        'uploadSpeed',
+        'pausedTorrentCount',
+        'blocklist_size',
+    ],
     # All time metrics
-    'cumulative': {
-        'downloadedBytes': {'type': 'counter'},
-        'filesAdded': {'type': 'counter'},
-        'uploadedBytes': {'type': 'counter'},
-        'secondsActive': {'type': 'gauge'},
-        'sessionCount': {'type': 'gauge'},
-    },
+    'cumulative': [
+        'downloadedBytes',
+        'filesAdded',
+        'uploadedBytes',
+        'secondsActive',
+        'sessionCount',
+    ],
     # Per session (restart) metrics
-    'current': {
-        'downloadedBytes': {'type': 'counter'},
-        'filesAdded': {'type': 'counter'},
-        'uploadedBytes': {'type': 'counter'},
-        'secondsActive': {'type': 'gauge'},
-        'sessionCount': {'type': 'gauge'},
-    }
+    'current': [
+        'downloadedBytes',
+        'filesAdded',
+        'uploadedBytes',
+        'secondsActive',
+        'sessionCount',
+    ]
 }
 
 
@@ -130,8 +130,8 @@ def get_stats():
         return  # On this run, just fail to return anything
     # Let's get our data
     for category, catmetrics in metrics.items():
-        for metric, attrs in catmetrics.items():
-            vl = collectd.Values(type=attrs['type'],
+        for metric in catmetrics:
+            vl = collectd.Values(type='gauge',
                                  plugin=PLUGIN_NAME,
                                  type_instance='%s-%s' % (category, metric))
             vl.dispatch(values=[field_getter(stats, metric, category)])
